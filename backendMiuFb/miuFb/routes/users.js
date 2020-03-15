@@ -14,6 +14,7 @@ router.get('/friends', controller.getAllFriends);
 router.get('/friends/:friendId', controller.getFriend); */
 
 router.post('/', controller.addUser);
+router.post('/posts/comments/:postId', controller.addComment);
 /* router.post('/posts/:userId', controller.addPost);
 router.post('/posts/update/:postId', controller.updatePost);
 router.post('/posts/delete/:postId', controller.deletePost);

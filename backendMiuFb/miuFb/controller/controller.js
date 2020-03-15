@@ -47,6 +47,25 @@ module.exports.addUser =  function(req, res){
     
 };
 
+//add comment
+module.exports.addComment =  function(req, res){
+    /*loggedin user*/
+    //query userId, postId $push comment
+    console.dir(req.body.username);
+    Model.findOneAndUpdate({'username':req.body.username, 'postId':req.body.postId},
+            {$push:{'comments':req.body.comments.text}},
+            function(err, comment){
+                if(err)console.log("Error comment: " + err);
+                else{
+                    console.log(comment);
+                }
+
+            }
+        );
+    
+    
+};
+
 /* module.exports.addPost = function(req, res){
     //make sure a user exists first and loggedin 
     console.dir('get posts controller');
