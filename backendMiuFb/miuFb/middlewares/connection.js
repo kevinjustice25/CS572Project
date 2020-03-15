@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
-
+const mongoDb = 'mongodb+srv://root:root@cluster0-wqdxy.gcp.mongodb.net/cs572db?retryWrites=true&w=majority';
 module.exports=(req,res, next)=>{
-    mongoose.connect('mongodb+srv://root:root@cluster0-wqdxy.gcp.mongodb.net/cs572db?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
+    mongoose.connect(mongoDb, {useNewUrlParser: true, useUnifiedTopology: true});
+    const db = mongoose.connection;
+    db.on('Error', console.error.bind(console, 'Mongodb Connection error'));
+    
     next();
 }
 
