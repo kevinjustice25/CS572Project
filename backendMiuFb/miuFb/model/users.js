@@ -46,6 +46,7 @@ const userSchema = new Schema({
 
 //creating a Model and an instance user
 const Model = mongoose.model('User', userSchema);
+
  
 
 module.exports= Model;

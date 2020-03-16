@@ -30,4 +30,5 @@ router.post('/friends/delete/:userId', controller.deleteFriend); */
     next();
   });
    */
+
 module.exports = router;
