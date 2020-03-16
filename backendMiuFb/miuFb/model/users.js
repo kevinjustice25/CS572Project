@@ -4,47 +4,49 @@ const mongoose = require('mongoose');
 //create a Schema
 const Schema =  mongoose.Schema;
 const userSchema = new Schema({
-   _id:String,
+
     username : String, //unique:true,
     name:  String,
     password : String,
-    roles: Array,
+    roles: {type:String, enum:['ADMIN', 'USER']},
     picture: String,
-    dateCreated: Date,
-
+    dateCreated: { type: Date, default: Date.now()},
+    
     
     posts : [ {
-            postId: Object,
-            userId : String,
+            postId: Schema.Types.ObjectId,
+            //userId : String, //we have only one user per post
             text: String,
             pictureUrl : String,
-            datePosted: Date,
+            datePosted: {type: Date, default: Date.now()},
                         
             comments : [ {
-                    userId : Object,
+                    userId : Schema.Types.ObjectId,
                     name : String,
                     text : String,
-                    dateCommented: Date,
-                    commentLikes :{count: Number, userId: [] } 
+                    dateCommented: {type: Date, default: Date.now()},
+                    commentLikes : {type: Number, min: 0},
                 }],
                         
-            postLikes :{count: Number, userId: [] }                   
+            postLikes :{type: Number, min: 0}                  
                 
     }],
     
-}); 
-    // friends: [ { 
-    //         userId : Object,
-    //         username: String,
-    //         enabled : Boolean
-    //     }]
     
-    // }, 
-        // {versionKey:false}
+    friends: [ { 
+            userId : Schema.Types.ObjectId,
+            username: String,
+            enabled : Boolean
+        }]
     
+    }, 
+        {versionKey:false}
+    );
+
 
 //creating a Model and an instance user
-const Model = mongoose.model('User', userSchema,'users');
+const Model = mongoose.model('User', userSchema);
+
  
 
 module.exports= Model;

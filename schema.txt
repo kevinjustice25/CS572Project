@@ -1,0 +1,62 @@
+const userSchema = new Schema({
+
+    username : String, //unique:true,
+    name:  String,
+    password : String,
+    roles: {type:String, enum:[‘Admin’, ‘user’]},
+    picture: String,
+    dateCreated: { type: Date, default: Date.now()},
+    
+    
+    posts : [ {
+            postId: Schema.Types.ObjectId,
+            //userId : String, //we have only one user per post
+            text: String,
+            pictureUrl : String,
+            datePosted: {type: Date, default: Date.now()},
+                        
+            comments : [ {
+                    userId : Schema.Types.ObjectId,
+                    name : String,
+                    text : String,
+                    dateCommented: {type: Date, default: Date.now()},
+                    commentLikes : {type: Number, min: 0},
+                }],
+                        
+            postLikes :{type: Number, min: 0}                  
+                
+    }],
+    
+    
+    friends: [ { 
+            userId : Schema.Types.ObjectId,
+            username: String,
+            enabled : Boolean
+        }]
+    
+    }, 
+        {versionKey:false}
+    );
+
+
+
+
+
+
+
+
+Resource of reference:
+var schema = new Schema(
+{
+  name: String,
+  binary: Buffer,
+  living: Boolean,
+  updated: { type: Date, default: Date.now() },
+  age: { type: Number, min: 18, max: 65, required: true },
+  mixed: Schema.Types.Mixed,
+  _someId: Schema.Types.ObjectId,
+  array: [],
+  ofString: [String], // You can also have an array of each of the other types too.
+  nested: { stuff: { type: String, lowercase: true, trim: true } }
+})
+
