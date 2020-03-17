@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
-const mongoDb = 'mongodb+srv://root:root@cluster0-wqdxy.gcp.mongodb.net/cs572db?retryWrites=true&w=majority';
+const DB_USER = process.env.DB_USER;
+const DB_PASS = process.env.DB_PASS;
+const DB_NAME = process.env.DB_NAME;
+
+const mongoDb = 'mongodb+srv://'+DB_USER+':'+DB_PASS+'@cluster0-wqdxy.gcp.mongodb.net/'+DB_NAME+'?retryWrites=true&w=majority';
+console.log('db: ' +mongoDb);
 module.exports=(req,res, next)=>{
     mongoose.connect(mongoDb, {useNewUrlParser: true, useUnifiedTopology: true});
     const db = mongoose.connection;
