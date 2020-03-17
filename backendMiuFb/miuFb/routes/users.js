@@ -16,13 +16,21 @@ router.get('/friends/:friendId', controller.getFriend); */
 router.post('/', controller.addUser);
 router.post('/posts/comments/:postId', controller.addComment);
 /* router.post('/posts/:userId', controller.addPost);
-router.post('/posts/update/:postId', controller.updatePost);
-router.post('/posts/delete/:postId', controller.deletePost);
-router.post('/profile/:userId', controller.updateProfile);
 router.post('/posts/comments/:postId', controller.addComment);
 router.post('/posts/likes/:postId', controller.addLike);
 router.post('/friends/add/:userId', controller.addFriend);
-router.post('/friends/delete/:userId', controller.deleteFriend); */
+
+router.put('/posts/update/:postId', controller.updatePost);
+router.put('/profile/:userId', controller.updateProfile);
+
+router.delete('/posts/delete/:postId', controller.deletePost);
+router.delete('/friends/delete/:userId', controller.deleteFriend); */
+
+//users registration, signin, update and delete
+router.post('/register', controller.register);
+router.post('/signin', controller.signin);
+router.put('/update/:id', controller.updateUser);
+router.delete('./delete/:id', controller.deleteUser);
 
 //unknown route forward it to home
 /* router.get('*', function(req,res,next){
