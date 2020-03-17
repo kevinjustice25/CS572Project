@@ -1,7 +1,7 @@
 const express = require('express');
 const Model = require('../model/users')
 
-/* module.exports.getAll = function(req, res){
+ module.exports.getAll = function(req, res){
     console.dir('get all controller');
 
     const cursor = Model.find({}).cursor();
@@ -15,7 +15,7 @@ const Model = require('../model/users')
     })
     res.send('At Home');
 };
-
+/*
 module.exports.getUser = function(req, res){};
 module.exports.getUserPosts = function(req, rest){};
 module.exports.getComments = function(req, res){};

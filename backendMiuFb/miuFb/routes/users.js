@@ -4,7 +4,7 @@ const controller = require('../controller/controller');
 
 var router = express.Router();
 
-//router.get('/', controller.getAll);/* GET users listing. for admin only*/
+router.get('/', controller.getAll);/* GET users listing. for admin only*/
 /* router.get('/:userId', controller.getUser);
 router.get('/profile/:userId', controller.getUserProfile);
 router.get('/posts/:userId', controller.getUserPosts);

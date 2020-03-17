@@ -1,2 +1,6 @@
-backendMiuFb/node_modules/
+backendMiuFb/miuFb/node_modules/
 backendMiuFb-two/node_modules/
+angular/node_modules/
+
+#configuration file
+.env
