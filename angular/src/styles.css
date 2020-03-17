@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/* @import url('https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css');
+@import "~font-awesome/css/font-awesome.css"; */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.div-header{
+
+
+  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-left: 20px;
+}
+div.container{
+  margin: 0px 1px;}
