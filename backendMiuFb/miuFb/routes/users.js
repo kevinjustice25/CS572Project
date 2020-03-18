@@ -1,6 +1,8 @@
 var express = require('express');
 const controller = require('../controller/controller');
-//const mongoose = require('mongoose');
+const authorize = require("../middlewares/checkAuth");
+const Model = require('../model/users');
+
 
 var router = express.Router();
 
@@ -27,10 +29,52 @@ router.delete('/posts/delete/:postId', controller.deletePost);
 router.delete('/friends/delete/:userId', controller.deleteFriend); */
 
 //users registration, signin, update and delete
-router.post('/register', controller.register);
+router.post('/registerUser', controller.registerUser);
 router.post('/signin', controller.signin);
-router.put('/update/:id', controller.updateUser);
-router.delete('./delete/:id', controller.deleteUser);
+/*router.put('/update/:id', controller.updateUser);
+router.delete('./delete/:id', controller.deleteUser); */
+
+// Get Single User
+router.route('/user-profile/:id').get(authorize, (req, res, next) => {
+  Model.findById(req.params.id, (error, data) => {
+      if (error) {
+          return next(error);
+      } else {
+          res.status(200).json({
+              msg: data
+          })
+      }
+  })
+})
+
+//======Update user=====//
+router.route('/update-user/:id').put((req, res, next) => {
+  Model.findByIdAndUpdate(req.params.id, {
+      $set: req.body
+  }, (error, data) => {
+      if (error) {
+          return next(error);
+          console.log(error)
+      } else {
+          res.json(data)
+          console.log('User successfully updated!')
+      }
+  })
+})
+
+
+// Delete User
+router.route('/delete-user/:id').delete((req, res, next) => {
+  Model.findByIdAndRemove(req.params.id, (error, data) => {
+      if (error) {
+          return next(error);
+      } else {
+          res.status(200).json({
+              msg: data
+          })
+      }
+  })
+})
 
 //unknown route forward it to home
 /* router.get('*', function(req,res,next){
