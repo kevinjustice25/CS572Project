@@ -15,10 +15,10 @@ router.get('/likes/:postId', controller.getLikes);//???
 router.get('/friends', controller.getAllFriends);
 router.get('/friends/:friendId', controller.getFriend); */
 
-router.post('/', controller.addUser);
+//router.post('/', controller.addUser);
 router.post('/posts/comments/:postId', controller.addComment);
-/* router.post('/posts/:userId', controller.addPost);
-router.post('/posts/comments/:postId', controller.addComment);
+router.post('/posts/:userId', controller.addPost);
+/*router.post('/posts/comments/:postId', controller.addComment);
 router.post('/posts/likes/:postId', controller.addLike);
 router.post('/friends/add/:userId', controller.addFriend);
 
