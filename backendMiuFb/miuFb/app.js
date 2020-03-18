@@ -11,13 +11,14 @@ const cors = require('cors');
 
 //user defined modules
 const controller = require('./controller/controller')
-const connection = require('./middlewares/connection')
+//const connection = require('./middlewares/connection')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const dbConfig = require('./middlewares/connection');
 
 // MongoDB conection
 mongoose.Promise = global.Promise;
+console.log(dbConfig.db)
 mongoose.connect(dbConfig.db, {
     useNewUrlParser: true,
     useUnifiedTopology: true

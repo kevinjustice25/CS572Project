@@ -29,7 +29,7 @@ module.exports.getAllFriends = function(req, res){};
 module.exports.getFriend = function(req, res){}; */
 
 module.exports.addUser =  function(req, res){
-    /*register a user*/
+    //register a user
     console.dir('add user controller');
     
     const User = new Model({
@@ -53,7 +53,7 @@ module.exports.addUser =  function(req, res){
 
 //add comment
 module.exports.addComment =  function(req, res){
-    /*loggedin user*/
+    //loggedin user
     //query userId, postId $push comment
     console.dir(req.body.username);
     Model.findOneAndUpdate({'username':req.body.username, 'postId':req.body.postId},
@@ -70,26 +70,7 @@ module.exports.addComment =  function(req, res){
     
 };
 
-/* module.exports.addPost = function(req, res){
-    //make sure a user exists first and loggedin 
-    console.dir('get posts controller');
-    
-    const User = new Model({
-        name: req.body.name,
-        username:req.body.username,
-        password: req.body.password,
-    });
-        
-    User.save(function(err, user){
-        console.log('hello 2');
-        if(err) console.error('error: ' + err); 
-        else
-        console.dir(user);       
-    });
-    res.send({name:req.body.name, username:req.body.username});
-        next();
-};
-
+/*
 module.exports.updatePost = function(req, res){};
 module.exports.deletePost = function(req, res){};
 module.exports.updateProfile = function(req, res){};
@@ -98,6 +79,17 @@ module.exports.addLike = function(req, res){};
 module.exports.addFriend = function(req, res){};
 module.exports.deleteFriend = function(req, res){}; */
 
+module.exports.addPost = async function(req, res){
+    //make sure a user exists first and loggedin 
+    console.log(req.body.post);
+    const post = new Model().post;
+    post = req.body.post;
+    const id = ObjectId(req.params.id);
+
+    const result = await Model.findByIdAndUpdate(id, {post: post},(err, doc)=>{
+        if(!err) console.log("successful post" +doc);
+    });
+}
 
 module.exports.post = function (req, res) {
     console.dir('get posts controller');
