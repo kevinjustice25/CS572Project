@@ -10,20 +10,20 @@ import { Router } from '@angular/router';
 })
 
 export class AuthService {
-  endpoint: string = 'http://localhost:4000/api';
+  endpoint: string = 'http://localhost:4000/users';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser = {};
 
-  constructor(
-    private http: HttpClient,
-    public router: Router
-  ) {
-  }
+  constructor(private http: HttpClient,  public router: Router) {  }
 
   // Sign-up
   signUp(user: User): Observable<any> {
-    let api = `${this.endpoint}/register-user`;
-    return this.http.post(api, user)
+    let api = `${this.endpoint}/registerUser`;
+    return this.http.post(api, user,{
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    })
       .pipe(
         catchError(this.handleError)
       )

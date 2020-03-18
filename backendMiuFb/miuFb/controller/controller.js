@@ -1,5 +1,9 @@
 const express = require('express');
-const Model = require('../model/users')
+const Model = require('../model/users');
+const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
+const authorize = require("../middlewares/checkAuth");
+
 
  module.exports.getAll = function(req, res){
     console.dir('get all controller');
@@ -151,4 +155,86 @@ User.findByIdAndUpdate(userid,{$set:{name:User.name}},{new:true}).then((docs)=>{
  console.log(User);
  
 res.send(User);
+}
+
+//=== Register user ===========//
+module.exports.registerUser = function(req, res) {
+   
+     if (req.body === null) {
+        return res.status(422).json({failure:'you need to fill'});
+        //it can be forwarded to home
+    }
+    else {
+        console.log("before");
+        bcrypt.hash(req.body.password, 10, function(err, hash) {
+            console.log(err);
+            
+            console.log(hash);     
+           });
+
+        bcrypt.hash(req.body.password, 10).then((hash) => {
+            console.log("after");
+
+            const user = new Model({
+                name: req.body.name,
+                username: req.body.email,
+                password: hash
+            });
+            user.save().then((response) => {
+                res.status(201).json({
+                    message: "User successfully created!",
+                    result: response
+                });
+            }).catch(error => {
+                console.log(error);
+
+                return res.status(500).json({
+                    error: error
+                });
+            });
+        });
+    }
+}
+
+//=== Login user ===========//
+module.exports.signin = function(req, res, next) {
+    let getUser;
+    const SECRETE_PRIVATE_KEY=process.env.SECRETE_PRIVATE_KEY;//put this in .env file
+
+    if(!req.body.email && !req.body.password){
+      return next(new Error("Invalid Request"));
+    }
+    
+    Model.findOne({
+        username: req.body.email
+    }).then(user => {
+        if (!user) {
+            return res.status(401).json({
+                message: "Authentication failed"
+            });
+        }
+        getUser = user;
+        return bcrypt.compare(req.body.password, user.password);
+    }).then(response => {
+        if (!response) {
+            return res.status(401).json({
+                message: "Authentication failed"
+            });
+        }
+        let jwtToken = jwt.sign({
+            email: getUser.username,
+            userId: getUser._id
+        }, SECRETE_PRIVATE_KEY, {
+            expiresIn: "1M"
+        });
+        res.status(200).json({
+            token: jwtToken,
+            expiresIn: 60,
+            _id: getUser._id
+        });
+    }) .catch(err => {
+        return res.status(401).json({
+            message: "Authentication failed"
+        });
+    });
 }
