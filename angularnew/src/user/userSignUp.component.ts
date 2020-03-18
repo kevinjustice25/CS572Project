@@ -6,11 +6,10 @@ import { IUser } from 'src/model/Iuser';
 
 @Component({
   selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  templateUrl: './userSignUp.component.html',
+  styleUrls: ['./userSignUp.component.scss']
 })
-export class UserComponent implements OnInit {
-   user : IUser;
+export class UserSignUpComponent implements OnInit {
 
   constructor(public service: UserService) { }
 
@@ -21,10 +20,11 @@ export class UserComponent implements OnInit {
 
 
   onSubmit() {
-    let resp = this.service.save(this.user);
+    let resp = this.service.save().subscribe((data) => {
+      console.log(data); alert("Created Succesfully");;
+    });
     console.log(resp);
-    
-    alert(resp);
+
   }
 
   onClear() {

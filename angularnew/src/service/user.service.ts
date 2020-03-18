@@ -11,6 +11,8 @@ import { IUser } from 'src/model/Iuser';
   providedIn: 'root'
 })
 export class UserService {
+
+  user: IUser;
   formUser: FormGroup = new FormGroup({
     userId: new FormControl(null),
     firstName: new FormControl("", Validators.required),
@@ -28,16 +30,18 @@ export class UserService {
 
   }
 
-  save(user: IUser) {
+  save() {
 
-    const newUser = {
-      "firstName": user.firstName,
-      "lastName": user.lastName,
-      "username": user.username,
-      "password": user.password
+    this.user = {
+      "_id": null,
+      "firstName": this.formUser.get('firstName').value,
+      "lastName": this.formUser.get('lastName').value,
+      "username": this.formUser.get('username').value,
+      "password": this.formUser.get('password').value
     }
+    console.log(this.user);
 
-    return this.httpClient.post("http://localhost:3000/users", newUser);
+    return this.httpClient.post("http://localhost:3000/users", this.user);
   }
 
   private _listeners = new Subject<any>();

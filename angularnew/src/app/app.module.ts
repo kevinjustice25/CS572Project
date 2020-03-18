@@ -18,7 +18,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 
-import { UserComponent } from '../user/user.component';
 import { Router } from "@angular/router";
 import { MatToolbarModule } from '@angular/material/toolbar';
 //import {MatDialogModule} from "@angular/material";
@@ -48,6 +47,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserSignInComponent } from '../user/user-sign-in.component';
+import { UserSignUpComponent } from '../user/userSignUp.component';
 
 
 
@@ -57,8 +58,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent,
-    UsersListComponent
+    UserSignUpComponent,
+    UsersListComponent,
+    UserSignInComponent
   ],
   imports: [
     BrowserModule,

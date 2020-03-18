@@ -18,12 +18,13 @@ export class AppComponent {
   //   this.loadHomePage();
   // }
 
-  userAccountManagement() {
-    this._router.navigateByUrl('/userList');
-  }
-}
-// userAccountManagement() {
-//   this._router.navigateByUrl('/usersignup');
+//   userAccountManagement() {
+//     this._router.navigateByUrl('/userList');
+//   }
 // }
+userAccountManagement() { 
 
+  this._router.navigateByUrl('/usersignup');
+}
+}
 
