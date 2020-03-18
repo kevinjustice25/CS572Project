@@ -1,0 +1,42 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <h1> MIU FaceBook</h1>
+    <span class="menu-spacer"></span>
+
+
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" opened>
+    <mat-nav-list>
+      <a mat-list-item routerLink="usersignup">
+        <div class="iconNavSide"><i style="color:darkred;" class="fa fa-list"></i></div> Sign Up
+      </a>
+
+      <a mat-list-item routerLink="usersignin">
+        <div class="iconNavSide"><i style="color:darkred;" class="fa fa-list"></i></div> Sign In
+      </a>
+
+      <mat-divider></mat-divider>
+      <a mat-list-item (click)="sidenav.toggle()">
+        <div class="iconNavSide"><i style="color:red;" class="fa fa-close"></i></div>Close
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <div style="height: 88vh;">
+      <router-outlet>
+      </router-outlet>
+
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
