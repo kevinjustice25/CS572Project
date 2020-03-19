@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 import { AuthService } from './../../shared/auth.service';
 import { Router } from '@angular/router';
+//import { UserService } from 'src/app/shared/post';
 
 @Component({
   selector: 'app-signup',
@@ -15,13 +16,17 @@ export class SignupComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     public authService: AuthService,
-    public router: Router
+    public router: Router,
+    //public userService: UserService
   ) {
     this.signupForm = this.fb.group({
-      name: [''],
-      email: [''],
-      mobile: [''],
-      password: ['']
+
+        userId: new FormControl(null),
+        name: new FormControl("", Validators.required),
+        //ame: new FormControl("", Validators.required),
+        email: new FormControl("", [Validators.required, Validators.email]),
+        password: new FormControl("", Validators.required),
+
     })
   }
 

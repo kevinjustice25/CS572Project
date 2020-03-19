@@ -1,6 +1,6 @@
 var express = require('express');
 const controller = require('../controller/controller');
-const authorize = require("../middlewares/checkAuth");
+const checkAuth = require("../middlewares/checkAuth");
 const Model = require('../model/users');
 
 
@@ -17,7 +17,25 @@ router.get('/friends/:friendId', controller.getFriend); */
 
 //router.post('/', controller.addUser);
 router.post('/posts/comments/:postId', controller.addComment);
-router.post('/posts/:userId', controller.addPost);
+//router.post('/posts/:email', controller.addPost);
+router.post("/posts/:email", checkAuth, async (req, res) => {
+    console.error('at post email :');
+    console.log(req.body.email);
+    console.log('post: ' + req.body.text);
+    console.log('email: ' + req.params.email)
+
+    await Model.updateOne({username: req.body.email},{
+        $push:{posts:req.body}
+    }, function(err, doc){
+        if(!err){ 
+            console.log(doc);
+            res.send({Success:'post added successfully'});
+        }
+        else console.log('Error');
+    })
+});
+  
+
 /*router.post('/posts/comments/:postId', controller.addComment);
 router.post('/posts/likes/:postId', controller.addLike);
 router.post('/friends/add/:userId', controller.addFriend);
@@ -34,8 +52,8 @@ router.post('/signin', controller.signin);
 /*router.put('/update/:id', controller.updateUser);
 router.delete('./delete/:id', controller.deleteUser); */
 
-// Get Single User
-router.route('/user-profile/:id').get(authorize, (req, res, next) => {
+// Get Single User profile
+router.route('/userProfile/:id').get(checkAuth, (req, res, next) => {
   Model.findById(req.params.id, (error, data) => {
       if (error) {
           return next(error);
@@ -47,8 +65,18 @@ router.route('/user-profile/:id').get(authorize, (req, res, next) => {
   })
 })
 
+//================ add new post ==================//
+/* router.route('/userProfile/:email').get(checkAuth, (req, res, next)=>{
+    Model.updateOne({username: req.params.email},{
+        $push:{posts:req.body}
+    }, function(err, doc){
+        if(!err){ console.log(doc);res.send(doc);}
+        else console.log('Error');
+    })
+}); */
+
 //======Update user=====//
-router.route('/update-user/:id').put((req, res, next) => {
+router.route('/updateUser/:id').put((req, res, next) => {
   Model.findByIdAndUpdate(req.params.id, {
       $set: req.body
   }, (error, data) => {
@@ -64,7 +92,7 @@ router.route('/update-user/:id').put((req, res, next) => {
 
 
 // Delete User
-router.route('/delete-user/:id').delete((req, res, next) => {
+router.route('/deleteUser/:id').delete((req, res, next) => {
   Model.findByIdAndRemove(req.params.id, (error, data) => {
       if (error) {
           return next(error);

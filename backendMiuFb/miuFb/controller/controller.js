@@ -70,25 +70,15 @@ module.exports.addComment =  function(req, res){
     
 };
 
-/*
-module.exports.updatePost = function(req, res){};
-module.exports.deletePost = function(req, res){};
-module.exports.updateProfile = function(req, res){};
-module.exports.addcomment = function(req, res){};
-module.exports.addLike = function(req, res){};
-module.exports.addFriend = function(req, res){};
-module.exports.deleteFriend = function(req, res){}; */
-
 module.exports.addPost = async function(req, res){
-    //make sure a user exists first and loggedin 
-    console.log(req.body.post);
-    const post = new Model().post;
-    post = req.body.post;
-    const id = ObjectId(req.params.id);
-
-    const result = await Model.findByIdAndUpdate(id, {post: post},(err, doc)=>{
-        if(!err) console.log("successful post" +doc);
-    });
+    //make sure a user exists first and loggedin     
+    
+    Model.updateOne({username: req.params.email},{
+        $push:{posts:req.body}
+    }, function(err, doc){
+        if(!err){ console.log(doc);res.send(doc);}
+        else console.log('Error');
+    })
 }
 
 module.exports.post = function (req, res) {
@@ -217,11 +207,11 @@ module.exports.signin = function(req, res, next) {
             email: getUser.username,
             userId: getUser._id
         }, SECRETE_PRIVATE_KEY, {
-            expiresIn: "1M"
+            expiresIn: "1h"
         });
         res.status(200).json({
             token: jwtToken,
-            expiresIn: 60,
+            expiresIn: 60*60,
             _id: getUser._id
         });
     }) .catch(err => {
@@ -230,3 +220,13 @@ module.exports.signin = function(req, res, next) {
         });
     });
 }
+
+
+/*
+module.exports.updatePost = function(req, res){};
+module.exports.deletePost = function(req, res){};
+module.exports.updateProfile = function(req, res){};
+module.exports.addcomment = function(req, res){};
+module.exports.addLike = function(req, res){};
+module.exports.addFriend = function(req, res){};
+module.exports.deleteFriend = function(req, res){}; */

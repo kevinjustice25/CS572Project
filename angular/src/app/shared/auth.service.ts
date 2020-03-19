@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from './user';
+import { Post } from './post';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -31,12 +32,15 @@ export class AuthService {
 
   // Sign-in
   signIn(user: User) {
+    console.log(user);
+
+    localStorage.setItem("userName",user.email);
     return this.http.post<any>(`${this.endpoint}/signin`, user)
       .subscribe((res: any) => {
         localStorage.setItem('access_token', res.token)
         this.getUserProfile(res._id).subscribe((res) => {
           this.currentUser = res;
-          this.router.navigate(['user-profile/' + res.msg._id]);
+          this.router.navigate(['userProfile/' + res.msg._id]);
         })
       })
   }
@@ -59,7 +63,7 @@ export class AuthService {
 
   // User profile
   getUserProfile(id): Observable<any> {
-    let api = `${this.endpoint}/user-profile/${id}`;
+    let api = `${this.endpoint}/userProfile/${id}`;
     return this.http.get(api, { headers: this.headers }).pipe(
       map((res: Response) => {
         return res || {}
@@ -67,7 +71,19 @@ export class AuthService {
       catchError(this.handleError)
     )
   }
+//add new post
 
+addPost(user:User):Observable<any>{
+  let api = `${this.endpoint}/userProfile/${user.email}`;
+  console.log(user);
+
+  return this.http.post(api, user,{headers:this.headers}).pipe(
+    map((res:Response)=>{
+      return res || {}
+    }),
+    catchError(this.handleError)
+  )
+}
   // Error
   handleError(error: HttpErrorResponse) {
     let msg = '';
