@@ -1,2 +1,4 @@
 # CS572Project
-Banking App
+MiuFb Project
+
+#Admin management module is done but not integrated. It will be considered for future enhancement.
