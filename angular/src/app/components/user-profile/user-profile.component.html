@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+      <div class="inner-main">
+          <h2 class="mb-4">User Profile</h2>
+          <a href="javascript:void(0)">
+            <img class="img" src="./assets/img/faces/marc.jpg" />
+          </a>
+          <p><strong>Name:</strong> {{this.currentUser.name}}</p>
+          <p><strong>Email:</strong> {{this.currentUser.username}}</p>
+          <p *ngFor='let post of this.currentUser.posts'>
+            <strong>Post:</strong> {{post.text}} &nbsp;&nbsp;
+            <strong>Date:</strong>{{post.datePosted | date}}
+            <!-- <strong>Post:</strong>{{post.comments}} -->
+          </p>
+          <div class="row">
+            <form [formGroup]="myForm" (ngSubmit)="addPost(this.currentUser.username)">
+
+              <mat-form-field appearance="fill">
+                <mat-label>Textarea</mat-label>
+                <textarea formControlName='text' matInput ></textarea>
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="submit">Post</button>
+
+
+            </form>
+
+          </div>
+  </div>
+</div>
