@@ -18,7 +18,6 @@ const dbConfig = require('./middlewares/connection');
 
 // MongoDB conection
 mongoose.Promise = global.Promise;
-console.log(dbConfig.db)
 mongoose.connect(dbConfig.db, {
     useNewUrlParser: true,
     useUnifiedTopology: true

@@ -12,8 +12,9 @@ const routes: Routes = [
   { path: '', redirectTo: '/log-in', pathMatch: 'full' },
   { path: 'log-in', component: SigninComponent },
   { path: 'sign-up', component: SignupComponent },
-  { path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard] },
+  { path: 'userProfile/:id', component: UserProfileComponent, canActivate: [AuthGuard] },
   //{the rest paths will be applied the above AuthoGuard service.}
+  {path: 'posts/:email', component: UserProfileComponent,canActivate:[AuthGuard]},
 ];
 
 @NgModule({
