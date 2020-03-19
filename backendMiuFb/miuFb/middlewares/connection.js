@@ -16,26 +16,3 @@ module.exports=(req,res, next)=>{
 module.exports = {
     db: 'mongodb+srv://'+DB_USER+':'+DB_PASS+'@cluster0-wqdxy.gcp.mongodb.net/'+DB_NAME+'?retryWrites=true&w=majority'
 }
-
-
-
-
-
-
-
-
-
-
-
-
-/* //populating a user data
-const User = new Model({
-    name: 'Asaad',
-    username:'asaad@miu.edu'
-});
- User.save(function(err){
-    if(err) console.log('error: ' + err);
-    else
-    console.log('User saved Correctly');
-}); 
-*/
