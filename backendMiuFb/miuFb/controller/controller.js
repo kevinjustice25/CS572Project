@@ -28,6 +28,7 @@ module.exports.getUserProfile = function(req, res){};
 module.exports.getAllFriends = function(req, res){};
 module.exports.getFriend = function(req, res){}; */
 
+//signup functionality
 module.exports.addUser =  function(req, res){
     //register a user
     console.dir('add user controller');
@@ -51,7 +52,7 @@ module.exports.addUser =  function(req, res){
     
 };
 
-//add comment
+//add comment to a post
 module.exports.addComment =  function(req, res){
     //loggedin user
     //query userId, postId $push comment
@@ -70,6 +71,7 @@ module.exports.addComment =  function(req, res){
     
 };
 
+//add new post
 module.exports.addPost = async function(req, res){
     //make sure a user exists first and loggedin     
     
@@ -81,21 +83,7 @@ module.exports.addPost = async function(req, res){
     })
 }
 
-module.exports.post = function (req, res) {
-    console.dir('get posts controller');
-    console.dir("outout: " + req.body.name);
-    let userData = req.body
-    console.log(userData)
-    const User = new Model(userData);
-    User.save(function (err, user) {
-        console.log('hello 2');
-        if (err) console.error('error: ' + err);
-        else
-            console.dir(user);
-    });
-    res.send(User);
-
-}
+//==========================================//
 //find by Id
 module.exports.getById = function (req, res) {
     // console.dir('get all controller');
